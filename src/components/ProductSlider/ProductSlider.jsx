@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         flexDirection:"row", 
         justifyContent:"space-between",
         alignItems:"center",       
-        overflow: "hidden", 
+        overflow: "hidden",         
     },
     wrapper:{    
         height:"100%",    
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     imgContainer:{
         height:"100%",
         flex:"1",
-        padding:"10px"
+        padding:"20px"
     },
     image:{
         height:"70%",
