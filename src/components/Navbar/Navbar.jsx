@@ -32,7 +32,7 @@ export default function Navbar() {
     return (
         <nav className={classes.navBar}>
             <Link className={classes.link} to="/">HOME</Link> | {" "}
-            <Link to="/products" className={classes.link}>PRODUCTS</Link> | {" "}
+            <Link to="/products" className={classes.link}>ALL PRODUCTS</Link> | {" "}
             <Link to="/cart" className={classes.link}><ShoppingCartOutlinedIcon className={classes.icon}/></Link>
         </nav>
     )

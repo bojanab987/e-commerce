@@ -5,7 +5,7 @@ import  Navbar from './components/Navbar/Navbar';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SearchBar from './components/SearchBar';
+import ProductPage from './routes/ProductPage';
 
 const useStyles = makeStyles({
  
@@ -21,7 +21,8 @@ const useStyles = makeStyles({
       borderBottom:"solid 1px",      
       padding:"10px 10px 20px 0",
       position:"fixed",
-      top:"0"       
+      top:"0",
+      zIndex:3       
   },
   bold:{        
       fontSize:"18px"
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
 })
 function App() {
   const classes= useStyles();
+  
   return (
     <BrowserRouter>
       <div className="App">  
@@ -40,15 +42,16 @@ function App() {
               <h2><em>fak</em>
                 <span className={classes.blue}>E</span>-commerce
               </h2>
-          </Typography>
-          <SearchBar />
+          </Typography>                    
           <Navbar />                
         </header>             
         <Routes>
           <Route path="/" element={<Home /> }>
-            
+           
           </Route>
-          <Route path="products" element={<Products />}></Route>
+          <Route path="products" element={<Products />}>
+            <Route path=":id" element={<ProductPage />}/> 
+          </Route>          
           
         </Routes>
        

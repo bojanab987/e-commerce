@@ -1,19 +1,26 @@
-import { Card, CardMedia, CardContent, CardActions,IconButton, Typography} from '@mui/material';
-// import { useParams} from 'react-router-dom';
+import { Card, CardContent, CardActions,IconButton, Typography} from '@mui/material';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
     card:{
         maxWidth:'100%',
-        height:'max-content'
+        height:'max-content',        
     },
-    image:{ 
-        padding:"20px",
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        flex:"1"
+    imageCont:{
+        maxWidth:"100%",
+        height:"330px",  
+        position:"relative"      
+    },
+    image:{
+        width:"50%", 
+        maxWidth:"100%",
+        height:"auto",        
+        display:"block",
+        top:"50%",
+        left:"50%",   
+        position:"absolute",
+        transform:"translate(-50%,-50%)"
     },
     actions:{
         display:"flex",
@@ -23,25 +30,28 @@ const useStyles = makeStyles({
         color:"#D83122",
         paddingRight:"10px",
         fontSize:"20px"
+    },
+    text:{
+        height:"100px",
+        textOverflow:"ellipsis"
     }
     
 })
 export default function Product({product, onAddToCart}){
     const handleAddToCart = () => onAddToCart(product.id, 1);
     const classes=useStyles();
-    // const params=useParams();
-    // const product = getProduct(parseInt(params.id,10))
+    
     return(
        
        <Card className={classes.card}>
-            <CardMedia                  
+            <div className={classes.imageCont}>
+                <img                 
                 component="img" 
-                alt="" 
-                height="300"
-                width="auto"
+                alt=""                 
                 src={product.image}
                 className={classes.image}
-            />
+                />
+            </div> 
             <CardContent >
                 <Typography 
                     component="div" 
@@ -49,9 +59,12 @@ export default function Product({product, onAddToCart}){
                     gutterBottom>
                         {product.title}
                 </Typography>
-                <Typography 
-                    variant="body2">
+                <Typography                     
+                    noWrap
+                    variant="body2"
+                    className={classes.text}>
                     {product.description}
+                    
                 </Typography> 
             </CardContent>
             <CardActions className={classes.actions} >
