@@ -13,8 +13,9 @@ const useStyles=makeStyles({
     },
     link:{
         textDecoration:"none",
-        width:"100%"
+        width:"100%",        
     }
+    
 })
 
 export default function Products({onAddToCart}) {

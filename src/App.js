@@ -35,8 +35,9 @@ function App() {
   const classes= useStyles();
   
   return (
-    <BrowserRouter>
-      <div className="App">  
+    <div className="App">  
+      <BrowserRouter>
+      
         <header className={classes.header}>        
           <Typography className={classes.bold}>
               <h2><em>fak</em>
@@ -46,17 +47,12 @@ function App() {
           <Navbar />                
         </header>             
         <Routes>
-          <Route path="/" element={<Home /> }>
-           
-          </Route>
-          <Route path="products" element={<Products />}>
-            <Route path=":id" element={<ProductPage />}/> 
-          </Route>          
-          
-        </Routes>
-       
-      </div>
-    </BrowserRouter>
+          <Route path="/" element={<Home /> }/>          
+          <Route path="/products" element={<Products />}/>       
+          <Route path="/products/:id" element={<ProductPage />}/> 
+        </Routes> 
+      </BrowserRouter>
+    </div>
     
   );
 }

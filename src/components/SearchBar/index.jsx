@@ -24,7 +24,7 @@ export default function SearchBar(){
     const classes=useStyles();
     
     return(
-        <FormControl variant="standard">
+        <FormControl variant="standard" style={{paddingBottom:"20px"}}>
             <InputLabel htmlFor="input-search"/>
                 <OutlinedInput
                     className={classes.input}
