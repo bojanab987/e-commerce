@@ -1,8 +1,9 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import { useState } from 'react';
 import { getProducts } from '../../data'; 
 import {makeStyles} from '@mui/styles';
+import QueryNavLink from "./../QueryNavLink";
+import { Button } from '@mui/material';
 
 const useStyles = makeStyles({
     sliderContainer:{
@@ -54,20 +55,30 @@ const useStyles = makeStyles({
         zIndex: "2",        
     },
     left:{
-        left:"20px"
+        left:"20px",        
     },
     right:{
-        right:"40px"
+        right:"40px",
+        justifyContent:"flex-end"
     },
     info:{
         flex:"1",
         padding:"50px"
+    },
+    link:{
+        textDecoration:"none",
+        width:"100%", 
+        color:"#1976d2",
+        '&:visited':{
+            color:"#1976d2"
+        }
     }
+
 });
 
 export default function ProductSlider(){
     const classes=useStyles();
-    const [slideIndex, setSlideIndex] = useState(0);    
+    const [slideindex, setSlideIndex] = useState(0);    
     const products=getProducts();
     const getRandomProducts= (products)=>{        
         let random = products.sort(()=> 0.5-Math.random()).slice(0,3)
@@ -75,12 +86,13 @@ export default function ProductSlider(){
     }
     const handleClick = (direction) => {
         if(direction === "left") {
-            setSlideIndex(slideIndex > 0 ? slideIndex-1 : 2);
+            setSlideIndex(slideindex > 0 ? slideindex-1 : 2);
         }else {
-            setSlideIndex(slideIndex< 2 ? slideIndex+1 : 0);
+            setSlideIndex(slideindex< 2 ? slideindex+1 : 0);
         }
     }
     const randomProducts= getRandomProducts(products);
+       
     return (
         
         <div className={classes.sliderContainer}>
@@ -90,7 +102,7 @@ export default function ProductSlider(){
                 className={`${classes.arrow} ${classes.left}`}>
                 <ArrowLeftOutlined />
             </div>
-            <div slideIndex={slideIndex} className={classes.wrapper}>
+            <div slideindex={slideindex} className={classes.wrapper}>
                 {randomProducts.map((prod)=>(
                     <div key={prod.title} className={classes.slide}>
                         <div className={classes.imgContainer}>
@@ -102,7 +114,13 @@ export default function ProductSlider(){
                         <div className={classes.info}>
                             <h3>{prod.title}</h3>
                             <p>{prod.description}</p>
-                            <Button>Show Product</Button>
+                            <Button variant="outlined">
+                                <QueryNavLink 
+                                    to={`/products/${prod.id}`}
+                                    className={classes.link}>
+                                Show Product
+                                </QueryNavLink>
+                            </Button>
                         </div>
                     </div>
                 ))}
