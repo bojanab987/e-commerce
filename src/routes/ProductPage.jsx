@@ -1,9 +1,7 @@
-import {getProduct} from './../data';
+import {getProduct,cart} from './../data';
 import { useParams } from 'react-router';
 import {makeStyles} from '@mui/styles';
-import {Button, IconButton} from '@mui/material';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import {Button} from '@mui/material';
 
 const useStyles=makeStyles({
     container:{
@@ -43,17 +41,14 @@ const useStyles=makeStyles({
         width:"25%",
         display:"flex",
         justifyContent:"space-between",
+        alignItems:"center",
         paddingBottom:"15px"
-    },
-    sign:{
-        color:"#5BA7B3"
-    },
+    },    
     addBtn:{
         border:"0.5px solid #5BA7B3"       
     },
     price:{
-        fontSize:"1.8rem",       
-        
+        fontSize:"1.8rem",
     }
     
 })
@@ -63,6 +58,21 @@ export default function ProductPage(){
     const params=useParams();
     const product=getProduct(parseInt(params.id,10));
     const classes= useStyles();
+
+    const handleClick=(productId)=>{        
+         if(product.id===productId){ 
+            if(cart.some(cartItem=>cartItem["id"]=== productId)) {
+                const item=cart.find(cartItem=>cartItem["id"]=== productId)
+                item.qty+=1
+                console.log(item.qty)
+                console.log("just increace capacity")
+            } else{
+                cart.push(product)
+                console.log("product added")
+                 console.log(cart)
+            }                  
+        } 
+    }    
 
     return(
         <main className={classes.container}>
@@ -82,19 +92,13 @@ export default function ProductPage(){
                 </p>
             </div>
             <div className={classes.bottom}>
-                <div>                    
-                    <div>
-                        <IconButton >
-                            <IndeterminateCheckBoxIcon className={classes.sign}/>
-                        </IconButton>                    
-                        <span>1</span>
-                        <IconButton >
-                            <AddBoxIcon className={classes.sign}/>
-                        </IconButton>
-                    </div>
+                <div>                   
                     <Button 
                         variant="outlined"
-                        className={classes.addBtn}>Add To cart</Button>
+                        className={classes.addBtn}
+                        onClick={()=>handleClick(product.id)}>
+                        Add To cart
+                    </Button>
                 </div>
                 <div>
                     <p
