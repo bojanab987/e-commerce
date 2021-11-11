@@ -1,6 +1,5 @@
 import { Outlet, useSearchParams } from "react-router-dom";
 import { getProducts } from "./../data";
-import QueryNavLink from "./../components/QueryNavLink";
 import { Grid } from "@mui/material";
 import Product from '../components/Product/Product';
 import {makeStyles} from '@mui/styles';
@@ -10,12 +9,7 @@ const useStyles=makeStyles({
     mainContainer:{
         paddingTop:"50px",
         
-    },
-    link:{
-        textDecoration:"none",
-        width:"100%",        
-    }
-    
+    }, 
 })
 
 export default function Products({onAddToCart}) {
@@ -40,13 +34,8 @@ export default function Products({onAddToCart}) {
                     return title.startsWith(filter.toLowerCase());
                 })
                 .map(product => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} >
-                        <QueryNavLink                         
-                            to={`/products/${product.id}`}
-                            key={product.id} 
-                            className={classes.link}>                       
-                                <Product product={product} onAddToCart={onAddToCart}/>                        
-                        </QueryNavLink>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} >                                              
+                        <Product product={product} onAddToCart={onAddToCart}/>                       
                     </Grid>
               ))}
             </Grid>

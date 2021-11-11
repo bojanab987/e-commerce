@@ -1,6 +1,7 @@
 import { Card, CardContent, CardActions,IconButton, Typography} from '@mui/material';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
+import QueryNavLink from "./../QueryNavLink";
 
 const useStyles = makeStyles({
     card:{
@@ -34,6 +35,14 @@ const useStyles = makeStyles({
     text:{
         height:"100px",
         textOverflow:"ellipsis"
+    },
+    link:{
+        textDecoration:"none",
+        width:"100%",
+        color:"#000",
+        '&:visited':{
+            color:"#000"
+        }        
     }
     
 })
@@ -44,29 +53,32 @@ export default function Product({product, onAddToCart}){
     return(
        
        <Card className={classes.card}>
-            <div className={classes.imageCont}>
-                <img                 
-                component="img" 
-                alt=""                 
-                src={product.image}
-                className={classes.image}
-                />
-            </div> 
-            <CardContent >
-                <Typography 
-                    component="div" 
-                    variant="h5" 
-                    gutterBottom>
-                        {product.title}
-                </Typography>
-                <Typography                     
-                    noWrap
-                    variant="body2"
-                    className={classes.text}>
-                    {product.description}
-                    
-                </Typography> 
-            </CardContent>
+            <QueryNavLink                         
+                to={`/products/${product.id}`}           
+                className={classes.link}> 
+                <div className={classes.imageCont}>
+                    <img                 
+                    component="img" 
+                    alt=""                 
+                    src={product.image}
+                    className={classes.image}
+                    />
+                </div> 
+                <CardContent >
+                    <Typography 
+                        component="div" 
+                        variant="h5" 
+                        gutterBottom>
+                            {product.title}
+                    </Typography>
+                    <Typography                     
+                        noWrap
+                        variant="body2"
+                        className={classes.text}>
+                        {product.description}                        
+                    </Typography> 
+                </CardContent>
+            </QueryNavLink>
             <CardActions className={classes.actions} >
                 <IconButton onClick={handleAddToCart}>
                     <AddShoppingCartOutlinedIcon />                    
