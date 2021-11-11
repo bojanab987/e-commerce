@@ -1,6 +1,7 @@
 import './App.css';
 import  Home  from './routes/Home';
 import Products from './routes/Products';
+import Cart from './routes/Cart'
 import  Navbar from './components/Navbar/Navbar';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -50,6 +51,7 @@ function App() {
           <Route path="/" element={<Home /> }/>          
           <Route path="/products" element={<Products />}/>       
           <Route path="/products/:id" element={<ProductPage />}/> 
+          <Route path="/cart" element={<Cart />}/> 
         </Routes> 
       </BrowserRouter>
     </div>

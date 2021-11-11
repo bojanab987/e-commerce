@@ -54,7 +54,7 @@ export default function CartItem({item}){
                     <IndeterminateCheckBoxIcon className={classes.icon}/>
                 </IconButton>                    
                 <span>{item.qty}</span>
-                <IconButton >
+                <IconButton onClick={()=>{}}>
                     <AddBoxIcon className={classes.icon} />
                 </IconButton>
             </div>

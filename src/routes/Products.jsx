@@ -1,5 +1,5 @@
 import { Outlet, useSearchParams } from "react-router-dom";
-import { getProducts } from "./../data";
+import { getProducts} from "./../data";
 import { Grid } from "@mui/material";
 import Product from '../components/Product/Product';
 import {makeStyles} from '@mui/styles';
@@ -15,7 +15,7 @@ const useStyles=makeStyles({
 export default function Products({onAddToCart}) {
     const classes=useStyles();
     const products = getProducts();
-    const [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();    
     
     return (
         <main             
