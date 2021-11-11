@@ -2,6 +2,7 @@ import { Card, CardContent, CardActions,IconButton, Typography} from '@mui/mater
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import { makeStyles } from '@mui/styles';
 import QueryNavLink from "./../QueryNavLink";
+import {cart} from '../../data';
 
 const useStyles = makeStyles({
     card:{
@@ -46,8 +47,25 @@ const useStyles = makeStyles({
     }
     
 })
-export default function Product({product, onAddToCart}){
-    const handleAddToCart = () => onAddToCart(product.id, 1);
+export default function Product({product}){
+    const handleAddToCart = () =>{
+        addToCart(product.id)
+    } 
+    const addToCart=(productId)=>{ 
+        if(product.id===productId){ 
+            if(cart.some(cartItem=>cartItem["id"]=== productId)) {
+                const item=cart.find(cartItem=>cartItem["id"]=== productId)
+                item.qty+=1
+                console.log(item.qty)
+                console.log("just increace capacity")
+            } else{
+                cart.push(product)
+                console.log("product added")
+                console.log(cart)
+            }                  
+        }        
+    }
+
     const classes=useStyles();
     
     return(
