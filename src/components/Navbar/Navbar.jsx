@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { makeStyles } from '@mui/styles';
+import Badge from '@mui/material/Badge';
+import { makeStyles,styled } from '@mui/styles';
 
 
 const useStyles = makeStyles({
@@ -28,7 +29,16 @@ const useStyles = makeStyles({
     
 });
 
-export default function Navbar() {
+const StyledBadge = styled(Badge)(() => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `1px solid #000`,
+      padding: '0 4px',
+    },
+  }));
+
+export default function Navbar({totalCartAmount}) {
     const classes=useStyles();
     
 
@@ -37,7 +47,12 @@ export default function Navbar() {
             <Link className={classes.link} to="/">HOME</Link> | {" "}
             <Link to="/products" className={classes.link}>ALL PRODUCTS</Link> | {" "}
             <Link to="/cart" className={classes.link}>
-                <ShoppingCartOutlinedIcon className={classes.icon}/>
+                <StyledBadge 
+                    badgeContent={totalCartAmount} 
+                    color="primary"
+                    >
+                    <ShoppingCartOutlinedIcon className={classes.icon}/>          
+                </StyledBadge>
             </Link>
         </nav>
     )
