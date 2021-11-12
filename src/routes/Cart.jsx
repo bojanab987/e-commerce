@@ -1,10 +1,10 @@
 import CartItem from '../components/CartItem';
-import {cart} from './../data';
+// import {cart} from './../data';
 import QueryNavLink from '../components/QueryNavLink';
 import {Button} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { makeStyles } from '@mui/styles';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles({
     container:{
@@ -77,40 +77,27 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Cart(){
-    const classes=useStyles();
-    const [ cartContent,setCartContent] = useState(cart);
+export default function Cart({cartItems, removeItem, increaseItemQty,decreaseItemQty, emptyCart, confirmOrder}){
+    const classes=useStyles();    
 
     const totalAmount=()=>{
         let total=0;
-        cart.forEach(element => {
+        cartItems.forEach(element => {
             total+=element.price*element.qty
         });
         return parseFloat(total).toFixed(2);
-    }
+    }    
 
-    const makeCartEmpty = (theCart)=>{
+    // useEffect(()=>{
+    //     const cartItems=JSON.parse(localStorage.getItem('cart'));
+    //     if(cartItems){
+    //         setCartContent(cartItems)
+    //     }
+    // },[]);
 
-        setCartContent(prev=> prev.length=0)
-        theCart=cartContent;
-        console.log(theCart)
-        console.log(cartContent)
-    }
-
-    const addToCart=(product)=>{
-        setCartContent([...cartContent,product]);
-    }
-
-    useEffect(()=>{
-        const cartItems=JSON.parse(localStorage.getItem('cart'));
-        if(cartItems){
-            setCartContent(cartItems)
-        }
-    },[]);
-
-    useEffect(()=>{
-        localStorage.setItem('cart', JSON.stringify(cartContent))
-    },[cartContent]);
+    // useEffect(()=>{
+    //     localStorage.setItem('cart', JSON.stringify(cartContent))
+    // },[cartContent]);
 
     return(
         <main className={classes.container}>
@@ -122,10 +109,14 @@ export default function Cart(){
                     <p className={classes.price}>Price</p>                    
                 </div>
                 <div className={classes.middle}>
-                    {(cart.length===0)
+                    {(cartItems.length===0)
                         ? <p>Your cart is empty. Go to store to add some products.</p>
-                        : cart.map( item => (
-                            <CartItem item={item} addToCart={addToCart}/> 
+                        : cartItems.map( item => (
+                            <CartItem key={item.id} 
+                                cartItem={item} 
+                                handleClick={()=>removeItem(item.id)}
+                                increaseItemQty={()=>increaseItemQty(item.id)}
+                                decreaseItemQty={()=>decreaseItemQty(item.id)}/> 
                         )
                     )}                    
                 </div>
@@ -143,17 +134,18 @@ export default function Cart(){
                         <p>$ {totalAmount()}</p>
                     </div>
                 </div>
-                {cart.length !== 0 &&
+                {cartItems.length !== 0 &&
                     (<div className={classes.finalBtns}>
                         <Button 
                             variant="contained" 
-                            onClick={()=>makeCartEmpty(cart)}
+                            onClick={()=>emptyCart()}
                             style={{backgroundColor:"#D92025"}}>
                             Empty Cart
                         </Button>
                         <Button 
                             variant="contained"
-                            style={{backgroundColor:"#4CD652"}}>Confirm order</Button>
+                            style={{backgroundColor:"#4CD652"}}
+                            onClick={()=>confirmOrder()}>Confirm order</Button>
                     </div>)
                 }
             </div>

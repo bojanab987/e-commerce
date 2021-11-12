@@ -1,4 +1,4 @@
-import {getProduct,cart} from './../data';
+import {getProduct} from './../data';
 import { useParams } from 'react-router';
 import {makeStyles} from '@mui/styles';
 import {Button} from '@mui/material';
@@ -53,26 +53,11 @@ const useStyles=makeStyles({
     
 })
 
-export default function ProductPage(){
+export default function ProductPage({addItemToCart}){
     
     const params=useParams();
     const product=getProduct(parseInt(params.id,10));
-    const classes= useStyles();
-
-    const handleClick=(productId)=>{        
-         if(product.id===productId){ 
-            if(cart.some(cartItem=>cartItem["id"]=== productId)) {
-                const item=cart.find(cartItem=>cartItem["id"]=== productId)
-                item.qty+=1
-                console.log(item.qty)
-                console.log("just increace capacity")
-            } else{
-                cart.push(product)
-                console.log("product added")
-                 console.log(cart)
-            }                  
-        } 
-    }    
+    const classes= useStyles();     
 
     return(
         <main className={classes.container}>
@@ -83,7 +68,7 @@ export default function ProductPage(){
                 <img 
                     className={classes.image}
                     src={product.image} 
-                    alt="" 
+                    alt={product.title} 
                 />
             </div>
             <div className={classes.desc}>
@@ -96,7 +81,7 @@ export default function ProductPage(){
                     <Button 
                         variant="outlined"
                         className={classes.addBtn}
-                        onClick={()=>handleClick(product.id)}>
+                        onClick={()=>addItemToCart(product.id)}>
                         Add To cart
                     </Button>
                 </div>

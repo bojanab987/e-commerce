@@ -143,8 +143,6 @@ const products = [
     }
 ];
 
-export const cart=[];
-
 export function getProducts(){
     return products;
 }

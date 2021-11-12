@@ -49,7 +49,7 @@ export default function Navbar({totalCartAmount}) {
             <Link to="/cart" className={classes.link}>
                 <StyledBadge 
                     badgeContent={totalCartAmount} 
-                    color="primary"
+                    color="primary "
                     >
                     <ShoppingCartOutlinedIcon className={classes.icon}/>          
                 </StyledBadge>

@@ -5,14 +5,14 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {makeStyles} from '@mui/styles';
 
 const useStyles=makeStyles({
-    itemWrapper:{
+    cartItemWrapper:{
         width:"105%",
         display:"flex",
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center"
     },
-    item:{
+    cartItem:{
         width:"70%",
         display:"flex", 
         alignItems:"center"       
@@ -38,28 +38,28 @@ const useStyles=makeStyles({
     }
 })
 
-export default function CartItem({item}){
+export default function CartcartItem({cartItem,handleClick, increaseItemQty,decreaseItemQty}){
     const classes=useStyles();
 
-    const total=item.price * item.qty; 
+    const total=cartItem.price * cartItem.qty; 
 
     return(
-        <div className={classes.itemWrapper}>
-            <div className={classes.item}>
-                <img src={item.image} alt={item.title} className={classes.image}/>
-                <p>{item.title}</p>
+        <div className={classes.cartItemWrapper}>
+            <div className={classes.cartItem}>
+                <img src={cartItem.image} alt={cartItem.title} className={classes.image}/>
+                <p>{cartItem.title}</p>
             </div>            
             <div className={classes.qty}>
-                <IconButton onClick={()=>{}} >
+                <IconButton onClick={()=>decreaseItemQty()} disabled={cartItem.qty>1?false:true}>
                     <IndeterminateCheckBoxIcon className={classes.icon}/>
                 </IconButton>                    
-                <span>{item.qty}</span>
-                <IconButton onClick={()=>{}}>
+                <span>{cartItem.qty}</span>
+                <IconButton onClick={()=>increaseItemQty()}>
                     <AddBoxIcon className={classes.icon} />
                 </IconButton>
             </div>
             <p className={classes.price}>$ {total}</p>
-            <IconButton >
+            <IconButton onClick={()=>handleClick()}>
                 <DeleteForeverIcon className={classes.iconEmpty}/>
             </IconButton>
         </div>

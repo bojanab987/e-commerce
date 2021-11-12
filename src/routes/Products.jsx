@@ -12,7 +12,7 @@ const useStyles=makeStyles({
     }, 
 })
 
-export default function Products({onAddToCart}) {
+export default function Products({cartItems, addItemToCart}) {
     const classes=useStyles();
     const products = getProducts();
     const [searchParams] = useSearchParams();    
@@ -34,8 +34,13 @@ export default function Products({onAddToCart}) {
                     return title.startsWith(filter.toLowerCase());
                 })
                 .map(product => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} >                                              
-                        <Product product={product} onAddToCart={onAddToCart}/>                       
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id} > 
+                                                                
+                        <Product 
+                            cartItems={cartItems} 
+                            product={product} 
+                            handleClick={()=>addItemToCart(product.id)}
+                        />                       
                     </Grid>
               ))}
             </Grid>
