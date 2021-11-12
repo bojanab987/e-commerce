@@ -1,81 +1,8 @@
-import CartItem from '../components/CartItem';
-// import {cart} from './../data';
-import QueryNavLink from '../components/QueryNavLink';
+import CartItem from '../../components/CartItem';
+import QueryNavLink from '../../components/QueryNavLink';
 import {Button} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { makeStyles } from '@mui/styles';
-// import { useState, useEffect } from 'react';
-
-const useStyles = makeStyles({
-    container:{
-        display:"flex",
-        flexDirection:"column",
-        justifyContent:"center",
-        width:"100%",
-        paddingTop:"50px"
-    },
-    cartWrapper:{
-        display:"flex",
-        flexDirection:"column",
-        justifyContent:"space-between",
-        alignItems:"flex-start",
-        marginLeft:"50px",       
-    },
-    top:{
-        display:"flex",
-        width:"70%",
-        justifyContent:"space-between",
-        borderBottom:"1px solid #d3cbcb"
-    },
-    item:{
-        width:"70%",        
-    },
-    qty:{
-        width:"20%"
-    },
-    middle:{
-        width:"70%",
-    },   
-    link:{
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        gap:"7px",
-        textDecoration:"none",
-        width:"100%", 
-        color:"#1976d2",
-        '&:visited':{
-            color:"#1976d2"
-        }
-    },
-    bottom:{
-        width:"72%",
-        marginTop:"20px",
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"space-between",
-        alignItems:"center"
-    },
-    btnGroup:{
-        display:"flex",
-        width:"75%",        
-        justifyContent:"flex-start"
-    },
-    total:{
-        fontSize:"1.5rem",
-        width:"30%",
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"space-between",
-        fontWeight:"700"
-    },
-    finalBtns:{
-        display:"flex",
-        justifyContent:"flex-end",
-        gap:"20px",
-        width:"72%"
-    }
-})
+import { useStyles } from './styles'
 
 export default function Cart({cartItems, removeItem, increaseItemQty,decreaseItemQty, emptyCart, confirmOrder}){
     const classes=useStyles();    

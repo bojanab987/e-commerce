@@ -1,0 +1,44 @@
+import { makeStyles } from '@mui/styles';
+
+export const useStyles = makeStyles({
+    card:{
+        maxWidth:'100%',
+        height:'max-content',        
+    },
+    imageCont:{
+        maxWidth:"100%",
+        height:"330px",  
+        position:"relative"      
+    },
+    image:{
+        width:"50%", 
+        maxWidth:"100%",
+        height:"auto",        
+        display:"block",
+        top:"50%",
+        left:"50%",   
+        position:"absolute",
+        transform:"translate(-50%,-50%)"
+    },
+    actions:{
+        display:"flex",
+        justifyContent:"space-between"
+    },
+    price:{        
+        color:"#D83122",
+        paddingRight:"10px",
+        fontSize:"20px"
+    },
+    text:{
+        height:"100px",
+        textOverflow:"ellipsis"
+    },
+    link:{
+        textDecoration:"none",
+        width:"100%",
+        color:"#000",
+        '&:visited':{
+            color:"#000"
+        }        
+    }    
+});

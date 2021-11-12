@@ -1,16 +1,16 @@
 import { Outlet, useSearchParams } from "react-router-dom";
-import { getProducts} from "./../data";
 import { Grid } from "@mui/material";
-import Product from '../components/Product/Product';
 import {makeStyles} from '@mui/styles';
-import SearchBar from '../components/SearchBar';
+import { getProducts} from "../../data";
+import Product from '../../components/Product';
+import SearchBar from '../../components/SearchBar';
 
 const useStyles=makeStyles({
     mainContainer:{
         paddingTop:"50px",
         
     }, 
-})
+});
 
 export default function Products({cartItems, addItemToCart}) {
     const classes=useStyles();

@@ -1,9 +1,9 @@
 import './App.css';
-import  Navbar from './components/Navbar/Navbar';
-import  Home  from './routes/Home';
-import Products from './routes/Products';
-import Cart from './routes/Cart'
-import ProductPage from './routes/ProductPage';
+import  Navbar from './components/Navbar';
+import  Home  from './routes/Home/Home';
+import Products from './routes/Products/Products';
+import Cart from './routes/Cart/Cart';
+import ProductPage from './routes/ProductPage/ProductPage';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

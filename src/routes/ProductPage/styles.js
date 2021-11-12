@@ -1,0 +1,50 @@
+import {makeStyles} from '@mui/styles';
+
+export const useStyles=makeStyles({
+    container:{
+        paddingTop:"50px",   
+        display:"flex",
+        flexDirection:"column",
+        justifyContent:"space-between",
+        alignItems:"center",
+        height:"100vh",
+        gap:"10px"    
+    },
+    titleDiv:{
+        padding:"10px"
+    },
+    title:{
+        fontSize:"18px"
+    },
+    imageContainer:{
+        maxWidth:"100%",        
+        padding:0,
+        margin:0
+    },
+    image:{
+        width:"50%",        
+        maxWidth:"100%",
+        height:"auto",        
+        display:"block",       
+        margin:"auto"
+    },
+    desc:{
+        width:"70%"
+    },
+    text:{
+        fontSize:"15px"
+    },
+    bottom:{
+        width:"25%",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems:"center",
+        paddingBottom:"15px"
+    },    
+    addBtn:{
+        border:"0.5px solid #5BA7B3"       
+    },
+    price:{
+        fontSize:"1.8rem",
+    }    
+});
