@@ -114,6 +114,17 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[cartItems])
 
+  useEffect(()=>{
+        const cartItems=JSON.parse(localStorage.getItem('cart'));
+        if(cartItems){
+            setCartItems(cartItems)
+        }
+    },[]);
+
+    useEffect(()=>{
+        localStorage.setItem('cart', JSON.stringify(cartItems))
+    },[cartItems]);
+
 
   return (
     <div className="App">  

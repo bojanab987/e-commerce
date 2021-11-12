@@ -13,19 +13,8 @@ export default function Cart({cartItems, removeItem, increaseItemQty,decreaseIte
             total+=element.price*element.qty
         });
         return parseFloat(total).toFixed(2);
-    }    
-
-    // useEffect(()=>{
-    //     const cartItems=JSON.parse(localStorage.getItem('cart'));
-    //     if(cartItems){
-    //         setCartContent(cartItems)
-    //     }
-    // },[]);
-
-    // useEffect(()=>{
-    //     localStorage.setItem('cart', JSON.stringify(cartContent))
-    // },[cartContent]);
-
+    } 
+    
     return(
         <main className={classes.container}>
             <h1>Your cart</h1>
