@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect} from 'react';
-import { getProducts, getProduct} from './data';
+import { getProducts, getProduct} from './utils/products';
 
 const useStyles = makeStyles({
  
@@ -46,7 +46,7 @@ function App() {
       if(cartItems.some(item=>item["id"]===productId)){
         const cItem=cartItems.find(item=>item["id"]===productId)
         cItem.qty+=1;
-        setCartItems(cartItems => [...cartItems,product])
+        setCartItems(cartItems => [...cartItems])
       }else{
         setCartItems(cartItems => [...cartItems, product])
       }
@@ -110,9 +110,8 @@ function App() {
   };
 
   useEffect(()=>{
-    countItemsInCart()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[cartItems])
+    countItemsInCart() 
+  })
 
   useEffect(()=>{
         const cartItems=JSON.parse(localStorage.getItem('cart'));
@@ -122,6 +121,7 @@ function App() {
     },[]);
 
     useEffect(()=>{
+      // countItemsInCart()
         localStorage.setItem('cart', JSON.stringify(cartItems))
     },[cartItems]);
 
