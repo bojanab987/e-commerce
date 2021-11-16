@@ -1,7 +1,7 @@
 import { Outlet, useSearchParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import {makeStyles} from '@mui/styles';
-import { getProducts} from "../../data";
+import { getProducts} from "../../utils/products";
 import Product from '../../components/Product';
 import SearchBar from '../../components/SearchBar';
 

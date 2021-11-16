@@ -1,4 +1,4 @@
-import {getProduct} from '../../data';
+import {getProduct} from '../../utils/products';
 import { useParams } from 'react-router';
 import { useStyles } from './styles';
 import {Button} from '@mui/material';

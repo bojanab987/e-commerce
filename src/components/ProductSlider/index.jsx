@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getProducts } from '../../data'; 
+import { getProducts } from '../../utils/products'; 
 import QueryNavLink from "../QueryNavLink";
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
