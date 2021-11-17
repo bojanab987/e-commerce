@@ -121,8 +121,7 @@ function App() {
     },[]);
 
     useEffect(()=>{
-      // countItemsInCart()
-        localStorage.setItem('cart', JSON.stringify(cartItems))
+      localStorage.setItem('cart', JSON.stringify(cartItems))
     },[cartItems]);
 
 
