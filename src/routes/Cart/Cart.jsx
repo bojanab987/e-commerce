@@ -3,9 +3,13 @@ import QueryNavLink from '../../components/QueryNavLink';
 import {Button} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useStyles } from './styles'
+import { useSelector, useDispatch} from 'react-redux';
+import { emptyCart, confirmOrder} from '../../redux/actions/actions';
 
-export default function Cart({cartItems, removeItem, increaseItemQty,decreaseItemQty, emptyCart, confirmOrder}){
+export default function Cart(){
     const classes=useStyles();    
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.cartItems)
 
     const totalAmount=()=>{
         let total=0;
@@ -14,6 +18,14 @@ export default function Cart({cartItems, removeItem, increaseItemQty,decreaseIte
         });
         return parseFloat(total).toFixed(2);
     } 
+
+    const handleEmptyCart = ()=>{
+        dispatch(emptyCart())
+    };
+
+    const handleConfirmOrder =()=>{
+        dispatch(confirmOrder())
+    }
     
     return(
         <main className={classes.container}>
@@ -25,14 +37,13 @@ export default function Cart({cartItems, removeItem, increaseItemQty,decreaseIte
                     <p className={classes.price}>Price</p>                    
                 </div>
                 <div className={classes.middle}>
+                {console.log(cartItems)}
                     {(cartItems.length===0)
                         ? <p>Your cart is empty. Go to store to add some products.</p>
                         : cartItems.map( item => (
                             <CartItem key={item.id} 
                                 cartItem={item} 
-                                handleClick={()=>removeItem(item.id)}
-                                increaseItemQty={()=>increaseItemQty(item.id)}
-                                decreaseItemQty={()=>decreaseItemQty(item.id)}/> 
+                            /> 
                         )
                     )}                    
                 </div>
@@ -54,14 +65,14 @@ export default function Cart({cartItems, removeItem, increaseItemQty,decreaseIte
                     (<div className={classes.finalBtns}>
                         <Button 
                             variant="contained" 
-                            onClick={()=>emptyCart()}
+                            onClick={()=>handleEmptyCart()}
                             style={{backgroundColor:"#D92025"}}>
                             Empty Cart
                         </Button>
                         <Button 
                             variant="contained"
                             style={{backgroundColor:"#4CD652"}}
-                            onClick={()=>confirmOrder()}>Confirm order</Button>
+                            onClick={()=>handleConfirmOrder()}>Confirm order</Button>
                     </div>)
                 }
             </div>
