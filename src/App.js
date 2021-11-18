@@ -7,8 +7,6 @@ import ProductPage from './routes/ProductPage/ProductPage';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, useEffect} from 'react';
-import { getProducts, getProduct} from './utils/products';
 
 const useStyles = makeStyles({
  
@@ -34,97 +32,9 @@ const useStyles = makeStyles({
       color:"#2116FF"
   },    
 })
-function App() {
-  let [cartItems, setCartItems] = useState([]);
-  let [totalCartAmount, setTotalCartAmount]=useState();
+function App() {  
   const classes= useStyles();
-  const products=getProducts();
   
-  function addItemToCart(productId) {    
-    const product=getProduct(productId);    
-    if(product.id===productId){
-      if(cartItems.some(item=>item["id"]===productId)){
-        const cItem=cartItems.find(item=>item["id"]===productId)
-        cItem.qty+=1;
-        setCartItems(cartItems => [...cartItems])
-      }else{
-        setCartItems(cartItems => [...cartItems, product])
-      }
-    }
-    alert(`${product.title} is added to cart`)
-  };
-
-  function removeItem(productId) {
-    setCartItems(cartItems => cartItems.filter(product=>{
-      return product.id !== productId;
-    }));
-    setClearItemQty();
-  };
-
-  function emptyCart(){
-    setCartItems([]);
-    setClearItemQty();
-  };
-
-  function increaseItemQty(productId){
-    cartItems.forEach(item=>{
-      if(item.id===productId){
-        item.qty+=1
-      }
-    });
-    setCartItems(prev=>[...prev])
-  };
-
-  function decreaseItemQty(productId){
-    cartItems.forEach(item=>{
-      if(item.id===productId){
-        item.qty-=1;
-      }
-    });
-    setCartItems(prev =>[...prev]);
-  };
-
-  function confirmOrder(){
-    if(cartItems.length >0){
-      alert("Your order is confirmed!");      
-      emptyCart()
-    }
-  }
-
-  //function to set product quantity (amount added in cart) to 1
-  //as inital quantity value
-  function setClearItemQty(){
-    products.forEach(prod=>{
-      prod.qty=1;
-    })
-  }
-
-  //function make calculation for total number of items in cart
-  //so it can be displayed on Navbar
-  const countItemsInCart=()=>{
-    let totalItems=0;
-    cartItems.forEach(item =>{
-      totalItems += item.qty
-    });
-    setTotalCartAmount(totalItems);
-  };
-
-  useEffect(()=>{
-    countItemsInCart() 
-  })
-
-  useEffect(()=>{
-        const cartItems=JSON.parse(localStorage.getItem('cart'));
-        if(cartItems){
-            setCartItems(cartItems)
-        }
-    },[]);
-
-    useEffect(()=>{
-      localStorage.setItem('cart', JSON.stringify(cartItems))
-    },[cartItems]);
-
-
   return (
     <div className="App">  
       <BrowserRouter>
@@ -135,13 +45,13 @@ function App() {
                 <span className={classes.blue}>E</span>-commerce
               </h2>
           </Typography>                    
-          <Navbar totalCartAmount={totalCartAmount}/>                
+          <Navbar />                
         </header>             
         <Routes>
           <Route path="/" element={<Home /> }/>          
-          <Route path="/products" element={<Products cartItems={cartItems} addItemToCart={addItemToCart}/>}/>       
-          <Route path="/products/:id" element={<ProductPage addItemToCart={addItemToCart}/>}/> 
-          <Route path="/cart" element={<Cart cartItems={cartItems} removeItem={removeItem} increaseItemQty={increaseItemQty} decreaseItemQty={decreaseItemQty} emptyCart={emptyCart} confirmOrder={confirmOrder}/>}/> 
+          <Route path="/products" element={<Products />}/>       
+          <Route path="/products/:id" element={<ProductPage />}/> 
+          <Route path="/cart" element={<Cart />}/> 
         </Routes> 
       </BrowserRouter>
     </div>
