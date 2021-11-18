@@ -2,48 +2,52 @@ import { getProducts, getProduct} from './products';
 
 const products=getProducts();
 
-export const handleAddItemToCart=(state,productId)=> {    
-  const product=getProduct(productId);
-     
+export const handleAddItemToCart=(cartItems,productId)=> {    
+  const product=getProduct(productId);  
+  
   if(product.id===productId){
-    if(state.cartItems.some(item=>item["id"]===productId)){
-      const cItem=state.cartItems.find(item=>item["id"]===productId)
-      cItem.qty+=1;
-      return [...state.cartItems]
-    }else{
-      return [...state.cartItems, product]      
+    if(cartItems.some(item=>item["id"]===productId)){
+      const cItem=cartItems.find(item=>item["id"]===productId)
+      cItem.qty+=1;      
+    }else {
+      cartItems.push(product)    
     }
-  }
-  alert(`${product.title} is added to cart`)
+  }  
 };
   
-export const handleRemoveCartItem = (state,productId) => {
-    return state.cartItems.filter(item => item.id !== productId);
+export const handleRemoveCartItem = (state,productId) => {   
+    state.cartItems = state.cartItems.filter(item => item.id !== productId);  
+    state.totalCartAmount=countItemsInCart(state)   
+    setClearItemQty();   
+    return state     
 };  
   
 export const handleDecreaseItemQty = (state, productId ) => {
-  state.cartItems.forEach(item=>{
+  let items=state.cartItems;  
+  items.forEach(item=>{
     if(item.id === productId){
       item.qty-=1;
-    }
-    return state;
+    }    
   });
+  state.totalCartAmount=countItemsInCart(state)    
+  return state
 };
 
 export const handleIncreaseItemQty = (state,productId) =>{
-  state.cartItems.forEach(item=>{
+  let items=state.cartItems;  
+  items.forEach(item=>{
     if(item.id===productId){
       item.qty+=1
     }
-  })
-  return state;
+  })  ;
+  state.totalCartAmount=countItemsInCart(state)  
+  return state  
 }
 
 export const handleEmptyCart =(state)=>{
   state.cartItems =[];
   state.totalCartAmount=0;
-  setClearItemQty();
-  return state;
+  setClearItemQty();  
 };
 
 export const handleConfirmOrder = (state) =>{
@@ -51,12 +55,11 @@ export const handleConfirmOrder = (state) =>{
     alert("Your order is confirmed!");
     handleEmptyCart(state)
   }
-  return state;
 }
 
 //function to set product quantity (amount added in cart) to 1
 //as inital quantity value
-function setClearItemQty(){
+export function setClearItemQty(){
   products.forEach(prod=>{
     prod.qty=1;
   })
@@ -64,10 +67,12 @@ function setClearItemQty(){
 
 //function make calculation for total number of items in cart
 //so it can be displayed on Navbar
-// const countItemsInCart=()=>{
-//   let totalItems=0;
-//   cartItems.forEach(item =>{
-//     totalItems += item.qty
-//   });
-//   setTotalCartAmount(totalItems);
-// };
+export const countItemsInCart=(state)=>{
+  let totalItems=0;
+  if(state.cartItems.length !==0){
+    state.cartItems.forEach(item =>{
+        totalItems += item.qty
+    });
+  }
+  return totalItems
+};
