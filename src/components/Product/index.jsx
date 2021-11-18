@@ -2,10 +2,16 @@ import { Card, CardContent, CardActions,IconButton, Typography} from '@mui/mater
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import QueryNavLink from "../QueryNavLink";
 import { useStyles } from './styles';
+import { useDispatch} from 'react-redux';
+import { addItemToCart } from '../../redux/actions/actions'
 
-export default function Product({product, handleClick}){ 
+export default function Product({product}){ 
     const classes=useStyles();
-    
+    const dispatch = useDispatch();
+
+    const handleAddItemToCart = (productId)=>{
+        dispatch(addItemToCart(productId))
+    }
     return(
        
        <Card className={classes.card}>
@@ -36,7 +42,7 @@ export default function Product({product, handleClick}){
                 </CardContent>
             </QueryNavLink>
             <CardActions className={classes.actions} >
-                <IconButton onClick={handleClick}>
+                <IconButton onClick={()=>handleAddItemToCart(product.id)}>
                     <AddShoppingCartOutlinedIcon />                    
                 </IconButton>
                 <Typography 
