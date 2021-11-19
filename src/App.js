@@ -3,6 +3,7 @@ import  Navbar from './components/Navbar';
 import  Home  from './routes/Home/Home';
 import Products from './routes/Products/Products';
 import Cart from './routes/Cart/Cart';
+import Registration from './routes/Registration'
 import ProductPage from './routes/ProductPage/ProductPage';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -48,7 +49,8 @@ function App() {
           <Navbar />                
         </header>             
         <Routes>
-          <Route path="/" element={<Home /> }/>          
+          <Route path="/" element={<Home /> }/>   
+          <Route path="/signup" element={<Registration />}/>        
           <Route path="/products" element={<Products />}/>       
           <Route path="/products/:id" element={<ProductPage />}/> 
           <Route path="/cart" element={<Cart />}/> 
