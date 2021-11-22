@@ -21,7 +21,7 @@ export default function Navbar() {
                 </Badge>
             </Link>
             <div>
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/signup" className={classes.link}>Sign Up</Link>
             </div>
         </nav>
     )

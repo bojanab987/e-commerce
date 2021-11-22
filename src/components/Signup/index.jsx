@@ -2,8 +2,8 @@ import React, { useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import Modal from "react-modal";
 import FormInput from '../forms/FormInput';
-import FormControl from '@mui/material/FormControl';
 import {Button} from '@mui/material';
+import { useStyles } from './styles';
 
 Modal.setAppElement("#root");
 
@@ -11,7 +11,9 @@ const Signup = props=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false); 
+    const [showSuccessModal,setShowSuccessModal]=useState(false)
     let navigate= useNavigate();   
+    const classes=useStyles();  
 
     async function signUp(username,password){
         let response=null;
@@ -26,12 +28,12 @@ const Signup = props=>{
                     password: password
                 })
             });
-        }catch(err)
-        {
+        }catch(err){
             console.error(err);
         }
         if(response.ok){
-            alert("Success")
+            console.log(response.json())
+            setShowSuccessModal(true);
             navigate('/login', {replace:true})
         }else{
             setShowModal(true)            
@@ -39,45 +41,56 @@ const Signup = props=>{
     }   
     
     const onClose=()=> setShowModal(false);
+    const onCloseSuccess=() =>setShowSuccessModal(false);
 
     return (
-        <div >
-            <h2>Sign Up</h2>
-            <FormControl>                
+        <div className={classes.signupContainer}>
+            <h2 className={classes.title}>Sign Up</h2>
+            <form className={classes.form}>                
                 <FormInput 
                     type="text"
                     name="username"
                     value={username}
                     placeholder="Username"
-                    handleChange={e=>setUsername(e.target.value)}
+                    handleChange={e=>setUsername(e.target.value)}                    
                 />
                 <FormInput  
                     type="password"
                     name="password"
                     value={password}
                     placeholder="Password"
-                    handleChange={(e) => setPassword(e.target.value)}
+                    handleChange={(e) => setPassword(e.target.value)}                    
                 />     
                 <Button 
                     type="button"        
                     variant="outlined"
+                    className={classes.btn}
                     onClick={()=>signUp(username,password)}>
                     Sign up
                 </Button>           
-            </FormControl>
-            <div>
+            </form>
+            <div className={classes.bottom}>               
                 <h3>Already have account?</h3>
-                <Link to="/login">
+                <Link to="/login" className={classes.link}>
                     Log in
                 </Link>
             </div>   
             <Modal 
                 isOpen={showModal}
                 onRequestClose={onClose}
-                overlayClassName={"overlay"}>
-                <p>The username already exist... Please try another one</p>
-                <Button onClick={onClose}>OK</Button>            
-            </Modal>         
+                overlayClassName={classes.overlay}
+                className={classes.modal}>
+                <p className={classes.text}>The username already exist... Please try another one</p>
+                <Button onClick={onClose} variant="outlined" className={classes.btn}>OK</Button>            
+            </Modal>   
+            <Modal 
+                isOpen={showSuccessModal}
+                onRequestClose={onCloseSuccess}
+                overlayClassName={classes.overlay}
+                className={classes.modal}>
+                <p>You are successfully registered.</p>
+                <Button onClick={onCloseSuccess} variant="outlined" className={classes.btn}>OK</Button>            
+            </Modal>        
         </div>
     )
 }
