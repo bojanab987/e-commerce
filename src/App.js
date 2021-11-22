@@ -5,9 +5,10 @@ import Products from './routes/Products/Products';
 import Cart from './routes/Cart/Cart';
 import Registration from './routes/Registration'
 import ProductPage from './routes/ProductPage/ProductPage';
-import { Typography } from '@mui/material';
+import Login from './routes/Login';
 import { makeStyles } from '@mui/styles';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { isLoggedIn } from './utils'
 
 const useStyles = makeStyles({
  
@@ -38,22 +39,22 @@ function App() {
   
   return (
     <div className="App">  
-      <BrowserRouter>
-      
+      <BrowserRouter>      
         <header className={classes.header}>        
-          <Typography className={classes.bold}>
+          <div className={classes.bold}>
               <h2><em>fak</em>
                 <span className={classes.blue}>E</span>-commerce
               </h2>
-          </Typography>                    
+          </div>                    
           <Navbar />                
         </header>             
         <Routes>
-          <Route path="/" element={<Home /> }/>   
-          <Route path="/signup" element={<Registration />}/>        
-          <Route path="/products" element={<Products />}/>       
-          <Route path="/products/:id" element={<ProductPage />}/> 
-          <Route path="/cart" element={<Cart />}/> 
+          <Route path="/" element={<Home /> }/>
+          <Route path="/signup" element={<Registration />}/>    
+          <Route path="/login" element={<Login/>}/>      
+          <Route path="/products" element={isLoggedIn ? <Products /> : <Navigate to="/login" />}/>       
+          <Route path="/products/:id" element={isLoggedIn ? <ProductPage /> : <Navigate to="/login" />}/> 
+          <Route path="/cart" element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}/> 
         </Routes> 
       </BrowserRouter>
     </div>
