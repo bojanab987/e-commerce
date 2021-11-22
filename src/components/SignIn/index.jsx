@@ -1,25 +1,22 @@
-import React, { useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom'
-import Modal from "react-modal";
+import React, {useState} from 'react';
 import FormInput from '../forms/FormInput';
+import { Link, useNavigate } from 'react-router-dom';
+import Modal from "react-modal";
 import {Button} from '@mui/material';
-import { useStyles } from './styles';
+import { useStyles } from '../Signup/styles';
 
-Modal.setAppElement("#root");
-
-const Signup = ()=>{
+const SignIn = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false); 
-    const [showSuccessModal,setShowSuccessModal]=useState(false)
-    let navigate= useNavigate();   
-    const classes=useStyles();  
-    const USERS_API='http://localhost:3001/users';
+    const classes=useStyles(); 
+    let navigate= useNavigate();
+    const LOGIN_API='http://localhost:4000/login';
 
-    async function signUp(username,password){
+    const logIn = async (username,password) => {
         let response=null;
         try {
-            response = await fetch(USERS_API, {
+            response = await fetch(LOGIN_API, {
                 method: 'POST',
                 headers:{ 
                     "Content-Type" : "application/json"
@@ -32,22 +29,24 @@ const Signup = ()=>{
         }catch(err){
             console.error(err);
         }
-        if(response.ok){
-            console.log(response.json())
-            setShowSuccessModal(true);
-            resetForm(); 
-            navigate('/login', {replace:true});            
+        if(response.ok){ 
+            const data=await response.json();
+            console.log(data)
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken)
+            navigate('/', {replace:true})
         }else{
             setShowModal(true);
-            resetForm();         
+            resetForm();                      
         }
-    }   
+    }
+
     const resetForm = () =>{
         setUsername('');
         setPassword('');
     }
+    
     const onClose=()=> setShowModal(false);
-    const onCloseSuccess=() =>setShowSuccessModal(false);
 
     return (
         <div className={classes.signupContainer}>
@@ -71,34 +70,26 @@ const Signup = ()=>{
                     type="button"        
                     variant="outlined"
                     className={classes.btn}
-                    onClick={()=>signUp(username,password)}>
-                    Sign up
+                    onClick={()=>logIn(username,password)}>
+                    Log in
                 </Button>           
             </form>
             <div className={classes.bottom}>               
-                <h3>Already have account?</h3>
-                <Link to="/login" className={classes.link}>
-                    Log in
+                <h3>You don't have account?</h3>
+                <Link to="/signup" className={classes.link}>
+                    Sign up 
                 </Link>
-            </div>   
+            </div>  
             <Modal 
                 isOpen={showModal}
                 onRequestClose={onClose}
                 overlayClassName={classes.overlay}
                 className={classes.modal}>
-                <p className={classes.text}>The username already exist... Please try another one</p>
+                <p className={classes.text}>Invalid username or password. Try again or sign up...</p>
                 <Button onClick={onClose} variant="outlined" className={classes.btn}>OK</Button>            
             </Modal>   
-            <Modal 
-                isOpen={showSuccessModal}
-                onRequestClose={onCloseSuccess}
-                overlayClassName={classes.overlay}
-                className={classes.modal}>
-                <p>You are successfully registered.</p>
-                <Button onClick={onCloseSuccess} variant="outlined" className={classes.btn}>OK</Button>            
-            </Modal>        
         </div>
     )
 }
 
-export default Signup;
+export default SignIn

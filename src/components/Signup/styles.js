@@ -43,7 +43,7 @@ export const useStyles= makeStyles({
         width:'30%',
         outline:'none',
         padding:'2rem',
-        height:'15vh'
+        height:'20vh'
     },
     overlay:{
         display:'flex',

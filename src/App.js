@@ -5,6 +5,7 @@ import Products from './routes/Products/Products';
 import Cart from './routes/Cart/Cart';
 import Registration from './routes/Registration'
 import ProductPage from './routes/ProductPage/ProductPage';
+import Login from './routes/Login';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -50,7 +51,8 @@ function App() {
         </header>             
         <Routes>
           <Route path="/" element={<Home /> }/>   
-          <Route path="/signup" element={<Registration />}/>        
+          <Route path="/signup" element={<Registration />}/>    
+          <Route path="/login" element={<Login/>}/>      
           <Route path="/products" element={<Products />}/>       
           <Route path="/products/:id" element={<ProductPage />}/> 
           <Route path="/cart" element={<Cart />}/> 
