@@ -33,7 +33,7 @@ const SignIn = () => {
             const data=await response.json();
             console.log(data)
             localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken)
+            localStorage.setItem('refreshToken', data.refreshToken);
             navigate('/', {replace:true})
         }else{
             setShowModal(true);
@@ -45,7 +45,7 @@ const SignIn = () => {
         setUsername('');
         setPassword('');
     }
-    
+
     const onClose=()=> setShowModal(false);
 
     return (
