@@ -8,46 +8,45 @@ export const handleAddItemToCart=(cartItems,productId)=> {
   if(product.id===productId){
     if(cartItems.some(item=>item["id"]===productId)){
       const cItem=cartItems.find(item=>item["id"]===productId)
-      cItem.qty+=1;      
-    }else {
-      cartItems.push(product)    
-    }
-  }  
+      cItem.qty+=1;       
+      return [
+        ...cartItems]
+    }else {      
+      return [...cartItems,product]             
+    }    
+  }   
+   
 };
   
-export const handleRemoveCartItem = (state,productId) => {   
-    state.cartItems = state.cartItems.filter(item => item.id !== productId);  
-    state.totalCartAmount=countItemsInCart(state)   
-    setClearItemQty();   
-    return state     
+export const handleRemoveCartItem = (cartItems,productId) => {   
+    let items= cartItems.filter(item => item.id !== productId);
+    return [...items]  
 };  
   
-export const handleDecreaseItemQty = (state, productId ) => {
-  let items=state.cartItems;  
-  items.forEach(item=>{
+export const handleDecreaseItemQty = (cartItems, productId ) => {
+    cartItems.forEach(item=>{
     if(item.id === productId){
       item.qty-=1;
     }    
   });
-  state.totalCartAmount=countItemsInCart(state)    
-  return state
+  return [...cartItems]  
 };
 
-export const handleIncreaseItemQty = (state,productId) =>{
-  let items=state.cartItems;  
-  items.forEach(item=>{
+export const handleIncreaseItemQty = (cartItems,productId) =>{
+  
+  cartItems.forEach(item=>{
     if(item.id===productId){
       item.qty+=1
     }
   })  ;
-  state.totalCartAmount=countItemsInCart(state)  
-  return state  
+  return [...cartItems]  
 }
 
 export const handleEmptyCart =(state)=>{
   state.cartItems =[];
   state.totalCartAmount=0;
-  setClearItemQty();  
+  setClearItemQty(); 
+  return {...state}
 };
 
 export const handleConfirmOrder = (state) =>{
@@ -55,6 +54,7 @@ export const handleConfirmOrder = (state) =>{
     alert("Your order is confirmed!");
     handleEmptyCart(state)
   }
+  return state;
 }
 
 //function to set product quantity (amount added in cart) to 1
