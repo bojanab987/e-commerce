@@ -49,7 +49,7 @@ function App() {
           <Navbar />                
         </header>             
         <Routes>
-          <Route path="/" element={<Home /> }/>   
+          <Route path="/" element={<Home /> }/>
           <Route path="/signup" element={<Registration />}/>    
           <Route path="/login" element={<Login/>}/>      
           <Route path="/products" element={isLoggedIn ? <Products /> : <Navigate to="/login" />}/>       
