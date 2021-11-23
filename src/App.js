@@ -8,6 +8,8 @@ import ProductPage from './routes/ProductPage/ProductPage';
 import Login from './routes/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { isLoggedIn } from './utils'
+
+let logged=isLoggedIn();
  
 function App() {
   return (
@@ -18,9 +20,9 @@ function App() {
           <Route path="/" element={<Home /> }/>
           <Route path="/signup" element={<Registration />}/>    
           <Route path="/login" element={<Login/>}/>      
-          <Route path="/products" element={isLoggedIn ? <Products /> : <Navigate to="/login" />}/>       
-          <Route path="/products/:id" element={isLoggedIn ? <ProductPage /> : <Navigate to="/login" />}/> 
-          <Route path="/cart" element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}/> 
+          <Route path="/products" element={logged===true  ? <Products /> : <Navigate to="/login" />}/>       
+          <Route path="/products/:id" element={logged===true ? <ProductPage /> : <Navigate to="/login" />}/> 
+          <Route path="/cart" element={logged===true ? <Cart /> : <Navigate to="/login" />}/> 
         </Routes> 
       </BrowserRouter>
     </div>

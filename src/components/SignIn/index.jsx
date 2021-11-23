@@ -52,7 +52,7 @@ const SignIn = () => {
 
     return (
         <div className={classes.signupContainer}>
-            <h2 className={classes.title}>Sign Up</h2>
+            <h2 className={classes.title}>Log in here</h2>
             <form className={classes.form}>                
                 <FormInput 
                     type="text"

@@ -8,11 +8,12 @@ import { isLoggedIn } from '../../utils'
 const Header = () => {
     const classes= useStyles();
     const navigate = useNavigate();
+    let logged=isLoggedIn();
     let login;
     let signup;
     const logout= <Button variant="outlined" onClick={()=>handleLogout()}>LOGOUT</Button>;  
 
-    if(isLoggedIn()===true){
+    if(logged){
         login=logout;
         signup='';
     }else{
@@ -38,8 +39,8 @@ const Header = () => {
         if(response.ok){
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            navigate('/login')
-            console.log(isLoggedIn())
+            navigate('/login', {replace:true})
+            
         }else{
             alert(response.status);
         }

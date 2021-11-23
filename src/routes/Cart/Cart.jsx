@@ -1,15 +1,17 @@
+import { useSelector, useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import CartItem from '../../components/CartItem';
 import QueryNavLink from '../../components/QueryNavLink';
 import {Button} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useStyles } from './styles'
-import { useSelector, useDispatch} from 'react-redux';
 import { emptyCart, confirmOrder} from '../../redux/actions/actions';
 
 export default function Cart(){
     const classes=useStyles();    
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.cartItems)
+    const navigate=useNavigate();
 
     const totalAmount=()=>{
         let total=0;
@@ -23,8 +25,80 @@ export default function Cart(){
         dispatch(emptyCart())
     };
 
-    const handleConfirmOrder =()=>{
-        dispatch(confirmOrder())
+    const handleConfirmOrder = async () =>{
+        let response;
+        try{
+            response = await fetch('http://localhost:3001/purchases', {
+                method:'POST',
+                headers: {
+                    "Content-Type" : 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`                    
+                },
+                body:JSON.stringify({ products: cartItems})
+            })            
+        }catch(err){
+            console.log(err)
+        }
+        if(response.ok){
+            dispatch(confirmOrder())
+            getPurchases();            
+        }else{
+            doRefreshToken();
+            handleConfirmOrder();
+        }        
+    }
+
+    const getPurchases = async () => {
+        let response;
+        try{
+            response= await fetch('http://localhost:3001/purchases', {
+                method: 'GET',
+                headers:{
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+        }catch(err){
+            console.log(err)
+        }
+        if(response.ok){
+            const data = await response.json();
+            const storage=[];
+            data.map(item=>{
+                storage.push({
+                    id:item.id,
+                    products:item.products,
+                    createdAt:item.createdAt
+                })
+                return storage;
+            })
+            localStorage.setItem('purchases', JSON.stringify(storage))
+        }else{
+            doRefreshToken();
+        }
+    }
+
+    const doRefreshToken = async () => {
+        let response;
+        try{
+            response=await fetch('http://localhost:4000/token',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    token: localStorage.getItem('refreshToken')
+                })
+            })
+        }catch(err){
+            console.log(err)
+        }
+        if(response.ok){
+            const data=response.json();
+            localStorage.setItem('accessToken',data.accessToken);
+            getPurchases();
+        }else{
+            navigate('/login', {replace:true})
+        }
     }
     
     return(
