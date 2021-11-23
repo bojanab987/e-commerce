@@ -70,9 +70,11 @@ export function setClearItemQty(){
 export const countItemsInCart=(state)=>{
   let totalItems=0;
   if(state.cartItems.length !==0){
-    state.cartItems.forEach(item =>{
+    state.cartItems.map(item =>{
         totalItems += item.qty
+        return totalItems
     });
-  }
-  return totalItems
+  } 
+  state.totalCartAmount=totalItems
+  return state.totalCartAmount
 };

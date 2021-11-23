@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Modal from "react-modal";
 import {Button} from '@mui/material';
 import { useStyles } from '../Signup/styles';
+import { isLoggedIn } from '../../utils'
 
 const SignIn = () => {
     const [username, setUsername] = useState('');
@@ -35,6 +36,7 @@ const SignIn = () => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             navigate('/', {replace:true})
+            console.log(isLoggedIn())
         }else{
             setShowModal(true);
             resetForm();                      
@@ -50,7 +52,7 @@ const SignIn = () => {
 
     return (
         <div className={classes.signupContainer}>
-            <h2 className={classes.title}>Sign Up</h2>
+            <h2 className={classes.title}>Log in here</h2>
             <form className={classes.form}>                
                 <FormInput 
                     type="text"
