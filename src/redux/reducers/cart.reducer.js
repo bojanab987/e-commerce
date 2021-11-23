@@ -4,9 +4,10 @@ import {
     handleRemoveCartItem,
     handleDecreaseItemQty, 
     handleIncreaseItemQty,
-    handleEmptyCart,
+    // handleEmptyCart,
     handleConfirmOrder,
-  countItemsInCart } from '../../utils/cart'
+  countItemsInCart 
+} from '../../utils/cart'
 
 const INITIAL_STATE={
     cartItems:[],
@@ -15,44 +16,48 @@ const INITIAL_STATE={
 
 const cartReducer =(state=INITIAL_STATE,action)=>{
     switch(action.type){
-        case actionTypes.ADD_TO_CART:
-            handleAddItemToCart(state.cartItems,action.payload);
-            state.totalCartAmount=countItemsInCart(state) 
-            console.log("Item added to cart", state)
-            return{
-                ...state               
-            };
-        case actionTypes.REMOVE_CART_ITEM:          
-          handleRemoveCartItem(state, action.payload);          
-          console.log("Item removed from cart",state)
+        case actionTypes.ADD_TO_CART:            
             return {
-                ...state                
-            };
-        case actionTypes.EMPTY_CART:
-          handleEmptyCart(state)
+                ...state,
+                cartItems:handleAddItemToCart(
+                state.cartItems,
+                action.payload
+                ),
+                totalCartAmount:countItemsInCart(state)
+            }
+        case actionTypes.REMOVE_CART_ITEM:        
+            let newCartItems=handleRemoveCartItem(state.cartItems, action.payload)
+            return{
+                ...state,
+                cartItems:newCartItems,
+                totalCartAmount:countItemsInCart(state)
+            }
+        case actionTypes.EMPTY_CART:        
           console.log("Cart is cleared",state)
             return {
-                ...state
+                ...state,
+                ...INITIAL_STATE
             };
-        case actionTypes.DECREMENT_ITEM_QTY:          
-          let newState=handleDecreaseItemQty(state,action.payload);
-          newState.cartItems=[...newState.cartItems]          
-          console.log("Item amount decreased",state)   
+        case actionTypes.DECREMENT_ITEM_QTY:
+        return {
+            ...state,
+            cartItems:handleDecreaseItemQty(
+                state.cartItems,
+                action.payload
+            ),
+            totalCartAmount:countItemsInCart(state)
+        }
+        case actionTypes.INCREMENT_ITEM_QTY:
             return {
-                ...newState           
-            };
-        case actionTypes.INCREMENT_ITEM_QTY:          
-          let newIncreasedState=handleIncreaseItemQty(state,action.payload);
-          newIncreasedState.cartItems=[...newIncreasedState.cartItems]
-          console.log("Item amount increased",newIncreasedState)            
-                return{
-                    ...newIncreasedState                                
-                };
+                ...state,
+                cartItems:handleIncreaseItemQty(state.cartItems, action.payload),
+                totalCartAmount:countItemsInCart(state)
+            }
         case actionTypes.CONFIRM_ORDER:
-          handleConfirmOrder(state) 
+         let newState=handleConfirmOrder(state) 
           console.log("Order confirmed",state)
             return {
-                ...state            
+                ...newState         
             }
         default:
             return state
