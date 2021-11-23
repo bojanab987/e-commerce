@@ -19,10 +19,7 @@ export default function Navbar() {
                     color="primary">
                     <ShoppingCartOutlinedIcon className={classes.icon}/>          
                 </Badge>
-            </Link>
-            <div>
-                <Link to="/signup" className={classes.link}>Sign Up</Link>
-            </div>
+            </Link>            
         </nav>
     )
 }
