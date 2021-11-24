@@ -8,17 +8,19 @@ import { isLoggedIn } from '../../utils'
 const Header = () => {
     const classes= useStyles();
     const navigate = useNavigate();
-    let logged=isLoggedIn();
+    let dashboard;
     let login;
     let signup;
     const logout= <Button variant="outlined" onClick={()=>handleLogout()}>LOGOUT</Button>;  
 
-    if(logged){
+    if(isLoggedIn===true){
         login=logout;
         signup='';
+        dashboard=<Link to="/dashboard" className={`${classes.dashboard} ${classes.link}`}>DASHBOARD</Link>;
     }else{
-        login=<Link to="/login" className={classes.link}>Login</Link>
-        signup=<Link to="/signup" className={classes.link}>SignUp</Link>
+        login=<Link to="/login" className={classes.link}>Login</Link>;
+        signup=<Link to="/signup" className={classes.link}>SignUp</Link>;
+        dashboard='';
     }
 
     const LOGOUT_API='http://localhost:4000/logout';
@@ -40,7 +42,7 @@ const Header = () => {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             navigate('/login', {replace:true})
-            
+            window.location.reload();
         }else{
             alert(response.status);
         }
@@ -56,6 +58,7 @@ const Header = () => {
             <div className={classes.right}>                  
                 <Navbar /> 
                 <div className={classes.signingOptions}>
+                    <span className={classes.wrap}>{dashboard} </span> 
                     <span className={classes.wrap}>{signup}</span>
                     <span className={classes.wrap}>{login} </span> 
                 </div>  

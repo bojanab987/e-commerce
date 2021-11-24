@@ -6,6 +6,7 @@ import {Button} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useStyles } from './styles'
 import { emptyCart, confirmOrder} from '../../redux/actions/actions';
+import { doRefreshToken, getPurchases } from '../../utils';
 
 export default function Cart(){
     const classes=useStyles();    
@@ -43,63 +44,10 @@ export default function Cart(){
             dispatch(confirmOrder())
             getPurchases();            
         }else{
-            doRefreshToken();
+            doRefreshToken(navigate);
             handleConfirmOrder();
         }        
-    }
-
-    const getPurchases = async () => {
-        let response;
-        try{
-            response= await fetch('http://localhost:3001/purchases', {
-                method: 'GET',
-                headers:{
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-        }catch(err){
-            console.log(err)
-        }
-        if(response.ok){
-            const data = await response.json();
-            const storage=[];
-            data.map(item=>{
-                storage.push({
-                    id:item.id,
-                    products:item.products,
-                    createdAt:item.createdAt
-                })
-                return storage;
-            })
-            localStorage.setItem('purchases', JSON.stringify(storage))
-        }else{
-            doRefreshToken();
-        }
-    }
-
-    const doRefreshToken = async () => {
-        let response;
-        try{
-            response=await fetch('http://localhost:4000/token',{
-                method:'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify({
-                    token: localStorage.getItem('refreshToken')
-                })
-            })
-        }catch(err){
-            console.log(err)
-        }
-        if(response.ok){
-            const data=response.json();
-            localStorage.setItem('accessToken',data.accessToken);
-            getPurchases();
-        }else{
-            navigate('/login', {replace:true})
-        }
-    }
+    }   
     
     return(
         <main className={classes.container}>

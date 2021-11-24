@@ -36,7 +36,8 @@ const SignIn = () => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             navigate('/', {replace:true})
-            console.log(isLoggedIn())
+            window.location.reload();
+            console.log(isLoggedIn)
         }else{
             setShowModal(true);
             resetForm();                      
