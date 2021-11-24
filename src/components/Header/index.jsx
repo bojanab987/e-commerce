@@ -42,7 +42,7 @@ const Header = () => {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             navigate('/login', {replace:true})
-            
+            window.location.reload();
         }else{
             alert(response.status);
         }

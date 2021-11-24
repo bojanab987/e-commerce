@@ -1,5 +1,6 @@
 
-export const isLoggedIn=localStorage.getItem('accessToken') === null ? false: true;
+export const isLoggedIn=localStorage.getItem('accessToken') === null || 
+    localStorage.getItem('accessToken') === 'undefiend' ? false: true;
 
 export const getPurchases = async () => {
     let response;
