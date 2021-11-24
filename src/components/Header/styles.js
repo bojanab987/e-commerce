@@ -42,5 +42,11 @@ export const useStyles = makeStyles({
     },
     wrap:{       
        paddingRight:'10px'
+    },
+    dashboard:{        
+        textDecoration:"none",
+        '&:hover':{
+            textDecoration:"underline"
+        }
     }
   })
