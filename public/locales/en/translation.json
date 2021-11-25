@@ -29,5 +29,6 @@
     "confirm": "Confirm order",
     "purchases": "My purchases",
     "date": "Date of purchasing",
-    "cartAdd": "Add to cart"
+    "cartAdd": "Add to cart",
+    "lang":"LANG"
 }

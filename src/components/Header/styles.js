@@ -4,7 +4,7 @@ export const useStyles = makeStyles({
  
     header:{
         backgroundColor: "white",
-        height: '20px',
+        height: '30px',
         display:"flex",
         width:"95%",
         flexDirection:"row",
