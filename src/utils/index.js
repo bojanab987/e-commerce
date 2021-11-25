@@ -31,7 +31,7 @@ export const getPurchases = async () => {
     }
 }
 
-export const doRefreshToken = async (navigate) => {
+export const doRefreshToken = async (navigate, callback) => {
     let response;
     try{
         response=await fetch('http://localhost:4000/token',{
@@ -49,7 +49,7 @@ export const doRefreshToken = async (navigate) => {
     if(response.ok){
         const data=await response.json();
         localStorage.setItem('accessToken',data.accessToken);
-        getPurchases();
+        callback();
     }else{        
         navigate('/login', {replace:true})
         window.location.reload(true)
