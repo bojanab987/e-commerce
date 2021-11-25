@@ -32,7 +32,7 @@ export default function Cart(){
     const handleConfirmOrder = async () =>{
         let response;
         try{
-            response = await fetch('http://localhost:3001/purchases', {
+            response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
                 method:'POST',
                 headers: {
                     "Content-Type" : 'application/json',

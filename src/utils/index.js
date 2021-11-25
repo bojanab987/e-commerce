@@ -5,7 +5,7 @@ export const isLoggedIn=localStorage.getItem('accessToken') === null ||
 export const getPurchases = async () => {
     let response;
     try{
-        response= await fetch('http://localhost:3001/purchases', {
+        response= await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -34,7 +34,7 @@ export const getPurchases = async () => {
 export const doRefreshToken = async (navigate, callback) => {
     let response;
     try{
-        response=await fetch('http://localhost:4000/token',{
+        response=await fetch(`${process.env.REACT_APP_AUTH_API}/token`,{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json'

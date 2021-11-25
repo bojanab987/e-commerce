@@ -11,13 +11,12 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false); 
     const classes=useStyles(); 
-    let navigate= useNavigate();
-    const LOGIN_API='http://localhost:4000/login';
+    let navigate= useNavigate();    
 
     const logIn = async (username,password) => {
         let response=null;
         try {
-            response = await fetch(LOGIN_API, {
+            response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
                 method: 'POST',
                 headers:{ 
                     "Content-Type" : "application/json"
