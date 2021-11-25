@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +11,7 @@ import { emptyCart, confirmOrder} from '../../redux/actions/actions';
 import { doRefreshToken, getPurchases } from '../../utils';
 
 export default function Cart(){
+    const { t } = useTranslation();
     const classes=useStyles();    
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.cartItems)
@@ -54,17 +56,17 @@ export default function Cart(){
     
     return(
         <main className={classes.container}>
-            <h1>Your cart</h1>
+            <h1>{t('cart')}</h1>
             <div className={classes.cartWrapper}>
                 <div className={classes.top}>
-                    <p className={classes.item}>Item</p>
-                    <p className={classes.qty}>Qty</p>
-                    <p className={classes.price}>Price</p>                    
+                    <p className={classes.item}>{t('item')}</p>
+                    <p className={classes.qty}>{t('qty')}</p>
+                    <p className={classes.price}>{t('price')}</p>                    
                 </div>
                 <div className={classes.middle}>
                 {console.log(cartItems)}
                     {(cartItems.length===0)
-                        ? <p>Your cart is empty. Go to store to add some products.</p>
+                        ? <p>{t('emptyInfo')}</p>
                         : cartItems.map( item => (
                             <CartItem key={item.id} 
                                 cartItem={item} 
@@ -77,12 +79,12 @@ export default function Cart(){
                         <Button variant="outlined" >
                             <QueryNavLink to={'/products'} className={classes.link}>
                                 <KeyboardBackspaceIcon/>
-                                Back to store   
+                                {t('back')}
                             </QueryNavLink>                
                         </Button>
                     </div> 
                     <div className={classes.total}>                   
-                        <p>Total:</p>
+                        <p>{t('total')}:</p>
                         <p>$ {totalAmount()}</p>
                     </div>
                 </div>
@@ -92,12 +94,12 @@ export default function Cart(){
                             variant="contained" 
                             onClick={()=>handleEmptyCart()}
                             style={{backgroundColor:"#D92025"}}>
-                            Empty Cart
+                            {t('emptyCart')}
                         </Button>
                         <Button 
                             variant="contained"
                             style={{backgroundColor:"#4CD652"}}
-                            onClick={()=>handleConfirmOrder()}>Confirm order</Button>
+                            onClick={()=>handleConfirmOrder()}>{t('confirm')}</Button>
                     </div>)
                 }
             </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getProducts } from '../../utils/products'; 
 import QueryNavLink from "../QueryNavLink";
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
@@ -9,6 +10,8 @@ export default function ProductSlider(){
     const classes=useStyles();
     const [slideindex, setSlideIndex] = useState(0);    
     const products=getProducts();
+    const { t }=useTranslation();
+
     const getRandomProducts= (products)=>{        
         let random = products.sort(()=> 0.5-Math.random()).slice(0,3)
         return random;
@@ -47,7 +50,7 @@ export default function ProductSlider(){
                                 <QueryNavLink 
                                     to={`/products/${prod.id}`}
                                     className={classes.link}>
-                                Show Product
+                                {t('showProduct')}
                                 </QueryNavLink>
                             </Button>
                         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardItem from '../../components/DashboardItem';
 import { getAllPurchases, totalAmount,formatDate } from '../../utils/purchases';
 import { useStyles } from './styles';
@@ -6,14 +7,15 @@ import { useStyles } from './styles';
 const Dashboard = () => {
     const classes=useStyles();
     const purchases=getAllPurchases();
+    const { t } = useTranslation();
     
     return (
         <main className={classes.container}>
-            <h1 className={classes.title}>My purchases:</h1>
+            <h1 className={classes.title}>{t('purchases')}:</h1>
             <div className={classes.top}>
                 <p>Id</p>
-                <p>Date of purchasing</p>
-                <p>Total paid</p>
+                <p>{t('date')}</p>
+                <p>{t('totalPaid')}</p>
             </div>
             <div className={classes.purchaseList}>
             {purchases.map( dashboardItem =>

@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom'
 import Modal from "react-modal";
 import FormInput from '../forms/FormInput';
@@ -13,7 +14,8 @@ const Signup = ()=>{
     const [showModal, setShowModal] = useState(false); 
     const [showSuccessModal,setShowSuccessModal]=useState(false)
     let navigate= useNavigate();   
-    const classes=useStyles();      
+    const classes=useStyles(); 
+    const { t } = useTranslation();
 
     async function signUp(username,password){
         let response=null;
@@ -50,20 +52,20 @@ const Signup = ()=>{
 
     return (
         <div className={classes.signupContainer}>
-            <h2 className={classes.title}>Sign Up</h2>
+            <h2 className={classes.title}>{t('signup')}</h2>
             <form className={classes.form}>                
                 <FormInput 
                     type="text"
                     name="username"
                     value={username}
-                    placeholder="Username"
+                    placeholder={t('username')}
                     handleChange={e=>setUsername(e.target.value)}                    
                 />
                 <FormInput  
                     type="password"
                     name="password"
                     value={password}
-                    placeholder="Password"
+                    placeholder={t('password')}
                     handleChange={(e) => setPassword(e.target.value)}                    
                 />     
                 <Button 
@@ -71,13 +73,13 @@ const Signup = ()=>{
                     variant="outlined"
                     className={classes.btn}
                     onClick={()=>signUp(username,password)}>
-                    Sign up
+                    {t('signup')}
                 </Button>           
             </form>
             <div className={classes.bottom}>               
-                <h3>Already have account?</h3>
+                <h3>{t('question2')}</h3>
                 <Link to="/login" className={classes.link}>
-                    Log in
+                    {t('login')}
                 </Link>
             </div>   
             <Modal 
@@ -85,7 +87,7 @@ const Signup = ()=>{
                 onRequestClose={onClose}
                 overlayClassName={classes.overlay}
                 className={classes.modal}>
-                <p className={classes.text}>The username already exist... Please try another one</p>
+                <p className={classes.text}>{t('signUpError')}</p>
                 <Button onClick={onClose} variant="outlined" className={classes.btn}>OK</Button>            
             </Modal>   
             <Modal 
@@ -93,7 +95,7 @@ const Signup = ()=>{
                 onRequestClose={onCloseSuccess}
                 overlayClassName={classes.overlay}
                 className={classes.modal}>
-                <p>You are successfully registered.</p>
+                <p>{t('signUpSuccess')}</p>
                 <Button onClick={onCloseSuccess} variant="outlined" className={classes.btn}>OK</Button>            
             </Modal>        
         </div>

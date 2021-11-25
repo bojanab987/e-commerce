@@ -9,7 +9,7 @@ export const useStyles = makeStyles({
         gap:"8px",
         padding:"10px 20px 10px 10px",
         fontSize:"20px", 
-            
+        textTransform:"uppercase" 
     },   
     icon:{       
         heigth:"16px",

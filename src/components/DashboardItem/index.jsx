@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useStyles } from './styles';
@@ -6,6 +7,7 @@ import QueryNavLink from '../QueryNavLink'
 
 const DashboardItem = ({purchase, totalPaid}) => {    
     const classes=useStyles();
+    const { t }=useTranslation();
     
     return (
         <div className={classes.wrapper}>
@@ -22,7 +24,7 @@ const DashboardItem = ({purchase, totalPaid}) => {
                             <QueryNavLink
                                 className={classes.link}
                                 to={`/dashboard/${purchase.id}`}>
-                                See details
+                                {t('seeDetails')}
                             </QueryNavLink>
                         <MoreHorizIcon />
                     </IconButton>                
