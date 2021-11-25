@@ -14,7 +14,7 @@ const Dashboard = () => {
             <h1 className={classes.title}>{t('purchases')}:</h1>
             <div className={classes.top}>
                 <p>Id</p>
-                <p>{t('date')}Date of purchasing</p>
+                <p>{t('date')}</p>
                 <p>{t('totalPaid')}</p>
             </div>
             <div className={classes.purchaseList}>
