@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import CartItem from '../../components/CartItem';
@@ -13,6 +14,8 @@ export default function Cart(){
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.cartItems)
     const navigate=useNavigate();
+    const callback=useCallback(()=>{
+        getPurchases()},[])
 
     const totalAmount=()=>{
         let total=0;
@@ -29,7 +32,7 @@ export default function Cart(){
     const handleConfirmOrder = async () =>{
         let response;
         try{
-            response = await fetch('http://localhost:3001/purchases', {
+            response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
                 method:'POST',
                 headers: {
                     "Content-Type" : 'application/json',
@@ -44,7 +47,7 @@ export default function Cart(){
             dispatch(confirmOrder())
             getPurchases();            
         }else{
-            doRefreshToken(navigate);
+            doRefreshToken(navigate,callback);
             handleConfirmOrder();
         }        
     }   

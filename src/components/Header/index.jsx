@@ -23,12 +23,10 @@ const Header = () => {
         dashboard='';
     }
 
-    const LOGOUT_API='http://localhost:4000/logout';
-
     const handleLogout = async () =>{
         let response=null
         try{
-            response= await fetch(LOGOUT_API, {
+            response= await fetch(`${process.env.REACT_APP_AUTH_API}/logout`, {
                 method:'DELETE',
                 headers:{'Content-Type': 'application/json'},
                 body:JSON.stringify({

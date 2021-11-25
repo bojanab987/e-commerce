@@ -13,13 +13,12 @@ const Signup = ()=>{
     const [showModal, setShowModal] = useState(false); 
     const [showSuccessModal,setShowSuccessModal]=useState(false)
     let navigate= useNavigate();   
-    const classes=useStyles();  
-    const USERS_API='http://localhost:3001/users';
+    const classes=useStyles();      
 
     async function signUp(username,password){
         let response=null;
         try {
-            response = await fetch(USERS_API, {
+            response = await fetch(`${process.env.REACT_APP_API}/users`, {
                 method: 'POST',
                 headers:{ 
                     "Content-Type" : "application/json"
