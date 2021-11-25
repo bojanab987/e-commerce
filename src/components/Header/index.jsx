@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate} from 'react-router-dom';
+import { useTranslation} from 'react-i18next'
 import { Button } from '@mui/material';
 import Navbar from '../Navbar';
 import { useStyles } from './styles';
@@ -8,15 +9,17 @@ import { isLoggedIn } from '../../utils'
 const Header = () => {
     const classes= useStyles();
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
     let dashboard;
     let login;
     let signup;
-    const logout= <Button variant="outlined" onClick={()=>handleLogout()}>LOGOUT</Button>;  
+    const logout= <Button variant="outlined" onClick={()=>handleLogout()}>{t('logout')}</Button>;  
 
     if(isLoggedIn===true){
         login=logout;
         signup='';
-        dashboard=<Link to="/dashboard" className={`${classes.dashboard} ${classes.link}`}>DASHBOARD</Link>;
+        dashboard=<Link to="/dashboard" className={`${classes.dashboard} ${classes.link}`}>{t("dashboard")}</Link>;
     }else{
         login=<Link to="/login" className={classes.link}>Login</Link>;
         signup=<Link to="/signup" className={classes.link}>SignUp</Link>;

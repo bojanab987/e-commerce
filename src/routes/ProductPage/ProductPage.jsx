@@ -4,12 +4,14 @@ import { useStyles } from './styles';
 import {Button} from '@mui/material';
 import { addItemToCart } from '../../redux/actions/actions';
 import { useDispatch} from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 export default function ProductPage(){
     const dispatch = useDispatch();
     const params=useParams();
     const product=getProduct(parseInt(params.id,10));
     const classes= useStyles();    
+    const { t } = useTranslation();
     
     const handleAddItemToCart = (productId)=>{
         dispatch(addItemToCart(productId))
@@ -38,7 +40,7 @@ export default function ProductPage(){
                         variant="outlined"
                         className={classes.addBtn}
                         onClick={()=>handleAddItemToCart(product.id)}>
-                        Add To cart
+                        {t('cartAdd')}
                     </Button>
                 </div>
                 <div>

@@ -54,7 +54,8 @@ export const useStyles = makeStyles({
         padding:"15px"
     },
     btn:{
-        justifySelf:"flex-end"
+        justifySelf:"flex-end",
+        textTransform:"uppercase"
     },
     bottom:{
         display:"flex",        

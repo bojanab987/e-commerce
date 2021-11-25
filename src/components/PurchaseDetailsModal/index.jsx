@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from "react-modal";
 import { useParams,useNavigate } from 'react-router';
 import {Button} from '@mui/material';
@@ -11,6 +12,7 @@ const PurchaseDetailsModal = () => {
     const params=useParams();
     const purchaseItem=getPurchaseItem(params.id);
     const navigate=useNavigate();
+    const { t } = useTranslation();
 
     const onClose = () =>{
         setShowModal(false)
@@ -27,9 +29,9 @@ const PurchaseDetailsModal = () => {
             <div className={classes.container}>
                 <div className={classes.top}>
                     <p className={classes.width10}>Id</p>
-                    <p className={classes.item}>Item</p>
-                    <p className={classes.width10}>Qty</p>
-                    <p className={classes.width20}>Price per item</p>                    
+                    <p className={classes.item}>{t('item')}</p>
+                    <p className={classes.width10}>{t('qty')}</p>
+                    <p className={classes.width20}>{t('price')}</p>                    
                 </div>
             {purchaseItem.map(item => 
                 <div key={item.id}
@@ -46,11 +48,11 @@ const PurchaseDetailsModal = () => {
             )}
             </div>
             <div className={classes.bottom}>
-                <p>Total paid:</p>
+                <p>{t('totalPaid')}:</p>
                 <p>$ {totalAmount(purchaseItem)}</p>
             </div>
             
-            <Button onClick={onClose} variant="outlined" className={classes.btn}>CLOSE</Button>            
+            <Button onClick={onClose} variant="outlined" className={classes.btn}>{t('close')}</Button>            
         </Modal>   
     )
 }

@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
 import SearchIcon from '@mui/icons-material/Search';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -22,13 +23,14 @@ const useStyles=makeStyles({
 export default function SearchBar(){    
     const [searchParams, setSearchParams] = useSearchParams();
     const classes=useStyles();
+    const { t } = useTranslation();
     
     return(
         <FormControl variant="standard" style={{paddingBottom:"20px"}}>
             <InputLabel htmlFor="input-search"/>
                 <OutlinedInput
                     className={classes.input}
-                    placeholder="Search products..."
+                    placeholder={`${t("search")}...`}
                     value={searchParams.get("filter") || ""}
                     onChange={event => {
                         let filter = event.target.value;
