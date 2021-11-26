@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,13 +7,14 @@ import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 import { useStyles} from './styles';
 
-const LanguageSwitch =({language}) => {
+const LanguageSwitch =() => {
     const {t, i18n}=useTranslation();
     const classes=useStyles();
+    const [language,setLanguage]=useState('')
 
     const selectLanguage = (lng) => {        
         i18n.changeLanguage(lng);
-        localStorage.setItem('lng', lng)
+        setLanguage(lng)        
     }  
   return (
     <Box sx={{ m:1, minWidth: 80 }}
