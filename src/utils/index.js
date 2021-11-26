@@ -21,6 +21,7 @@ export const getPurchases = async () => {
             storage.push({
                 id:item.id,
                 products:item.products,
+                userId:item.userId,
                 createdAt:item.createdAt
             })
             return storage;

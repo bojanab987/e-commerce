@@ -5,7 +5,7 @@ import { getAllPurchases, totalAmount,formatDate } from '../../utils/purchases';
 import { useStyles } from './styles';
 
 const Dashboard = () => {
-    const classes=useStyles();
+    const classes=useStyles();    
     const purchases=getAllPurchases();
     const { t } = useTranslation();
     
@@ -16,7 +16,7 @@ const Dashboard = () => {
                 <p>Id</p>
                 <p>{t('date')}</p>
                 <p>{t('totalPaid')}</p>
-            </div>
+            </div>            
             <div className={classes.purchaseList}>
             {purchases.map( dashboardItem =>
                 <DashboardItem 

@@ -4,12 +4,12 @@ import Modal from "react-modal";
 import { useParams,useNavigate } from 'react-router';
 import {Button} from '@mui/material';
 import { useStyles } from './styles';
-import { getPurchaseItem, totalAmount } from '../../utils/purchases'
+import { getPurchaseItem, totalAmount } from '../../utils/purchases';
  
 const PurchaseDetailsModal = () => {
     const [showModal, setShowModal] = useState(true);
     const classes=useStyles();
-    const params=useParams();
+    const params=useParams();   
     const purchaseItem=getPurchaseItem(params.id);
     const navigate=useNavigate();
     const { t } = useTranslation();
