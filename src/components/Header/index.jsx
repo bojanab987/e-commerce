@@ -43,6 +43,7 @@ const Header = () => {
         if(response.ok){
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
             navigate('/login', {replace:true})
             window.location.reload();
         }else{

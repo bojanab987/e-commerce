@@ -34,6 +34,7 @@ const SignIn = () => {
         if(response.ok){ 
             const data=await response.json();
             console.log(data)
+            localStorage.setItem('username', username)
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             navigate('/', {replace:true})
